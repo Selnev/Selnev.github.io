@@ -511,6 +511,9 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
@@ -518,7 +521,7 @@
             <div id="articleContent">
                 <p>2021-06-25: 开始开发博客</p>
 <p>2021-06-26: 更换主题, 投入使用, 继续开发</p>
-<p>2021-07-2: 增加 valine 评论系统</p>
+<p>2021-07-2: 增加 $valine$ 评论系统</p>
 <hr>
 <p>~~ 没有更多了 ~~</p>
 
@@ -1093,6 +1096,13 @@
 
 </main>
 
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
 
 
 
