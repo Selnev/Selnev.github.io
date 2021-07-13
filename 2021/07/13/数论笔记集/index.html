@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Java 学习笔记, Selnev">
+    <meta name="keywords" content="数论笔记集, Selnev">
     <meta name="description" content="It&#39;s Selnev&#39;s blog.">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Java 学习笔记 | Selnev&#39;s Blog</title>
+    <title>数论笔记集 | Selnev&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -362,12 +362,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Java 学习笔记</h1>
+                    <h1 class="description center-align post-title">数论笔记集</h1>
                 </div>
             </div>
         </div>
@@ -483,8 +483,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Java/">
-                                <span class="chip bg-color">Java</span>
+                            <a href="/tags/%E6%95%B0%E8%AE%BA/">
+                                <span class="chip bg-color">数论</span>
+                            </a>
+                        
+                            <a href="/tags/C/">
+                                <span class="chip bg-color">C++</span>
                             </a>
                         
                     </div>
@@ -495,8 +499,12 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Java/" class="post-category">
-                                Java
+                            <a href="/categories/%E6%95%B0%E8%AE%BA/" class="post-category">
+                                数论
+                            </a>
+                        
+                            <a href="/categories/%E6%95%B0%E8%AE%BA/C/" class="post-category">
+                                C++
                             </a>
                         
                     </div>
@@ -508,7 +516,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-07-08
+                    2021-07-13
                 </div>
                 
 
@@ -532,22 +540,128 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <blockquote>
-<p>本篇是笔者在暑假自学 Java 后的总结, 所以示例较少, 归纳较多。</p>
+                <h2 id="1-素数之章"><a href="#1-素数之章" class="headerlink" title="1. 素数之章"></a>1. 素数之章</h2><h3 id="埃拉托斯特尼筛法"><a href="#埃拉托斯特尼筛法" class="headerlink" title="埃拉托斯特尼筛法"></a>埃拉托斯特尼筛法</h3><blockquote>
+<p>埃拉托斯特尼筛法, 简称埃氏筛法, 用于筛选 $ n $ 以内的质数</p>
 </blockquote>
-<h2 id="初识-Java"><a href="#初识-Java" class="headerlink" title="初识 Java"></a>初识 Java</h2><p>第一次接触 Java, 就觉得除了 Java 类的封装以外, 都和 C++ 挺类似的。<br>因为笔者已有一定 C++ 基础, 所以学 Java 的语法还是比较容易的。<br>另外如果还没有 IDE 的话, 可以看<a href="https://selnev.github.io/2021/07/03/%E5%B8%B8%E8%A7%81-IDE-%E5%8F%8A%E4%B8%8B%E8%BD%BD/">本博客这篇文章</a> 的 Java 部分(如果没有 Java 的话, 可以去<a target="_blank" rel="noopener" href="https://www.java.com/">Oracle官网</a> 看看)。</p>
-<h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World!"></a>Hello World!</h2><p>这是每一次学习编程语言的第一个程序, 没有它你的程序就没有灵魂。话不多说，直接上代码:</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HelloWorld</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"Hello World!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="主要思想"><a href="#主要思想" class="headerlink" title="主要思想"></a>主要思想</h4><p>首先, 找到 $ n $ 以内的质数, 最容易被想到的判断方法当然是暴力算法, 一个一个判断是否是质数:</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 时间复杂度 O(n ^ 2) 空间复杂度 O(1)</span>
+<span class="token keyword">void</span> <span class="token function">IsPrime</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">%</span> i <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+            <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">int</span> <span class="token function">Prime</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">%</span> i <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><img src="https://z3.ax1x.com/2021/07/09/RjhdOK.png"></p>
-<p>这几行代码很简单, 但有些细节要注意:</p>
-<blockquote>
-<p>首先外面的 <code>public class</code> 定义的类名必须和文件名一样, 不然会报错:<br><img src="https://z3.ax1x.com/2021/07/09/Rjh0eO.png"><br>另外 Java 中字符串只能是由双引号括起来的, 不像 Python 一样都行</p>
+<p>但明显, 时间复杂度过高了。但因为若 $ n $ 有一个因数 $ x \leq \sqrt{n} $ , 则 $ n $ 还有因数 $ \frac{n}{x} \geq \sqrt{n} $, 所以可以只枚举到 $ \sqrt{n} $ 即可, 可以优化此算法:</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 时间复杂度 O(n ^ 3/2) 空间复杂度 O(1)</span>
+<span class="token keyword">void</span> <span class="token function">IsPrime</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> i <span class="token operator">*</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">%</span> i <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+            <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">int</span> <span class="token function">Prime</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">%</span> i <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>但时间复杂度仍然很高。但由上面的算法枚举因数的想法, 可逆向思考枚举倍数。于是便有筛法:</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 时间复杂度 O(n log(n)) 空间复杂度 O(n)</span>
+<span class="token keyword">bool</span> prime<span class="token punctuation">[</span>MAXN<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">void</span> <span class="token function">Prime</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    prime<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> i <span class="token operator">*</span> j <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> j <span class="token operator">++</span><span class="token punctuation">)</span>
+            prime<span class="token punctuation">[</span>i <span class="token operator">*</span> j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>有一定优化, 但还不够快。但其实经过观察, 可得以下几个结论:</p>
+<ol>
+<li>若一个数是合数, 则其倍数以被其因数筛去了。</li>
+<li>$ j $ 可从 $ i $ 开始枚举, 因为 $ j &lt; i $ 筛去的数在之前 $ i $ 等于现在的 $ j $ 时已经筛去了。</li>
+</ol>
+<p>所以这些重复筛去的可以跳过, 所以得:</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 时间复杂度 O(n log(log(n))) 空间复杂度 O(n)</span>
+<span class="token keyword">bool</span> prime<span class="token punctuation">[</span>MAXN<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">void</span> <span class="token function">Eratosthenes</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>prime<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
+        	<span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> i<span class="token punctuation">;</span> i <span class="token operator">*</span> j <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> j <span class="token operator">++</span><span class="token punctuation">)</span>
+            	prime<span class="token punctuation">[</span>i <span class="token operator">*</span> j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这就是埃氏筛, 时间复杂度 $ O(n \log_{2} \log_{2} n)$ , 空间复杂度 $ O(n) $。当然还可以再优化一些, 但此写法为基础写法, 其他便不再赘述。</p>
+<h3 id="欧拉筛法"><a href="#欧拉筛法" class="headerlink" title="欧拉筛法"></a>欧拉筛法</h3><blockquote>
+<p>欧拉筛法, 也称线性筛, 简称欧拉筛, 同样用于筛选 $ n $ 以内的素数</p>
 </blockquote>
+<p>埃氏筛固然好, 好写, 但时间复杂度后面带的两个 $ log $ 实在是令人不爽。那有没有时间复杂度 $ O(n) $ 的筛法呢? 当然有, 那就是欧拉筛法。</p>
+<h4 id="主要思想-1"><a href="#主要思想-1" class="headerlink" title="主要思想"></a>主要思想</h4><p>首先若想实现时间复杂度为线性的话, 每个数字只会被筛一次, 所以欧拉筛的思想为:</p>
+<p>首先, 设一个数 $ n = ab $ , 其中 $ a $ 为 $ n $ 的最小质因数。</p>
+<p>然后我们可以枚举 $ b $ , 原因如下:</p>
+<blockquote>
+<p>若有数 $ m = bp $ , 其中 $ p $ 为 $ m $ 的最小质因数, 且 $ p &gt; b $</p>
+<p>若 $ b $ 是一个质数:</p>
+<blockquote>
+<p>$ \because b &lt; p $</p>
+<p>$\therefore b $ 是 $ n $ 的最小质因数</p>
+<p>与原意不符</p>
+</blockquote>
+<p>若 b 是一个合数:</p>
+<blockquote>
+<p>设 $ b = kc $, 其中 $ k $ 为 $ b $ 的最小质因数</p>
+<p>$ \because b &lt; p $</p>
+<p>$ \therefore k &lt; p $</p>
+<p>$ \therefore k $ 是 $ n $ 的最小质因数</p>
+<p>与原意不符</p>
+</blockquote>
+<p>$ \therefore 综上: 若 n = ab, 且 a 为 n 的最小质因数, 则 a \leq b $</p>
+</blockquote>
+<p>所以当我们枚举 $ b $ 时, 可取的 $ a $ 值已经求出了, 所以在枚举之前算出的质数即可。</p>
+<p>但有因为这里枚举的是 $ b $ , 所以可能还没枚举到这个数真正的 $ b $ , 可能就会有一些其他数先筛到它了, 比如 12 是先被 4 筛到, 而不是被 6 筛掉。所以要在枚举 $ a $ 时判断, 若 $ b \equiv 0 (mod\ a) $ , 则完成这一次筛选后就不再筛选了, 原因如下:</p>
+<blockquote>
+<p>若有 $ m = ab $ , 其中 $ a $ 是质数, 且 $ b \geq a $ , $ b \equiv 0 (mod\ a) $</p>
+<p>则对于后来枚举到的质数 $ p $ :</p>
+<blockquote>
+<p>$ \because a $ 是质数, $ p $ 是质数</p>
+<p>$ \because b \equiv 0 (mod\ a) $</p>
+<p>$ \therefore $ 设 $ b = ak $</p>
+<p>$ \therefore $ 后来筛到的 $ b’ = apk $</p>
+<p>根据定义得:</p>
+<p>$ b’ $ 的最小质因数为 $ p $</p>
+<p>$ \because a, p $ 都是质数</p>
+<p>又 $ \because a &lt; p $</p>
+<p>$ \therefore a $ 是 $ b’ $ 的最小质因数</p>
+<p>与原意不符</p>
+</blockquote>
+<p>$ \therefore 当 $ $ b \equiv 0 (mod\ a) $ 时, $ a $ 不能取更大的值, 否则不符定义</p>
+</blockquote>
+<p>所以由上面的结论可得:</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 时间复杂度 O(n), 空间复杂度 O(n + ln(n)/n)</span>
+<span class="token keyword">bool</span> IsPrime<span class="token punctuation">[</span>MAXN<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> Prime<span class="token punctuation">[</span>MAXM<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">void</span> <span class="token function">Euler</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    IsPrime<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>IsPrime<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> Prime<span class="token punctuation">[</span><span class="token operator">++</span> Prime<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> i<span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> Prime<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> i <span class="token operator">*</span> prime<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> j <span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            IsPrime<span class="token punctuation">[</span>i <span class="token operator">*</span> prime<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">%</span> prime<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>附: 与欧拉有关的知识都有大片证明, 读者若不注重证明方法可跳过不读</p>
+</blockquote>
+<hr>
 
                 
             </div>
@@ -574,7 +688,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://selnev.github.io/2021/07/08/Java-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">https://selnev.github.io/2021/07/08/Java-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</a>
+                    <a href="https://selnev.github.io/2021/07/13/%E6%95%B0%E8%AE%BA%E7%AC%94%E8%AE%B0%E9%9B%86/">https://selnev.github.io/2021/07/13/%E6%95%B0%E8%AE%BA%E7%AC%94%E8%AE%B0%E9%9B%86/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -612,8 +726,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Java/">
-                                    <span class="chip bg-color">Java</span>
+                                <a href="/tags/%E6%95%B0%E8%AE%BA/">
+                                    <span class="chip bg-color">数论</span>
+                                </a>
+                            
+                                <a href="/tags/C/">
+                                    <span class="chip bg-color">C++</span>
                                 </a>
                             
                         </div>
@@ -920,9 +1038,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/07/13/%E6%95%B0%E8%AE%BA%E7%AC%94%E8%AE%B0%E9%9B%86/">
                     <div class="card-image">
@@ -940,9 +1059,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-07-13
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-07-13
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -959,6 +1078,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -981,13 +1101,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/07/03/%E5%B8%B8%E8%A7%81-IDE-%E5%8F%8A%E4%B8%8B%E8%BD%BD/">
+                <a href="/2021/07/08/Java-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="常见 IDE 及下载">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="Java 学习笔记">
                         
-                        <span class="card-title">常见 IDE 及下载</span>
+                        <span class="card-title">Java 学习笔记</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -998,14 +1118,14 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-07-03
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-07-08
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/IDE/" class="post-category">
-                                    IDE
+                            <a href="/categories/Java/" class="post-category">
+                                    Java
                                 </a>
                             
                             
@@ -1015,8 +1135,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/IDE/">
-                        <span class="chip bg-color">IDE</span>
+                    <a href="/tags/Java/">
+                        <span class="chip bg-color">Java</span>
                     </a>
                     
                 </div>
