@@ -540,10 +540,10 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="1-素数之章"><a href="#1-素数之章" class="headerlink" title="1. 素数之章"></a>1. 素数之章</h2><h3 id="埃拉托斯特尼筛法"><a href="#埃拉托斯特尼筛法" class="headerlink" title="埃拉托斯特尼筛法"></a>埃拉托斯特尼筛法</h3><blockquote>
+                <h2 id="1-素数与因数之章"><a href="#1-素数与因数之章" class="headerlink" title="1. 素数与因数之章"></a>1. 素数与因数之章</h2><h3 id="1-筛法"><a href="#1-筛法" class="headerlink" title="1. 筛法"></a>1. 筛法</h3><h4 id="埃拉托斯特尼筛法"><a href="#埃拉托斯特尼筛法" class="headerlink" title="埃拉托斯特尼筛法"></a>埃拉托斯特尼筛法</h4><blockquote>
 <p>埃拉托斯特尼筛法, 简称埃氏筛法, 用于筛选 $ n $ 以内的质数</p>
 </blockquote>
-<h4 id="主要思想"><a href="#主要思想" class="headerlink" title="主要思想"></a>主要思想</h4><p>首先, 找到 $ n $ 以内的质数, 最容易被想到的判断方法当然是暴力算法, 一个一个判断是否是质数:</p>
+<h5 id="主要思想"><a href="#主要思想" class="headerlink" title="主要思想"></a>主要思想</h5><p>首先, 找到 $ n $ 以内的质数, 最容易被想到的判断方法当然是暴力算法, 一个一个判断是否是质数:</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 时间复杂度 O(n ^ 2) 空间复杂度 O(1)</span>
 <span class="token keyword">void</span> <span class="token function">IsPrime</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
@@ -599,38 +599,38 @@
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>这就是埃氏筛, 时间复杂度 $ O(n \log_{2} \log_{2} n)$ , 空间复杂度 $ O(n) $。当然还可以再优化一些, 但此写法为基础写法, 其他便不再赘述。</p>
-<h3 id="欧拉筛法"><a href="#欧拉筛法" class="headerlink" title="欧拉筛法"></a>欧拉筛法</h3><blockquote>
+<h4 id="欧拉筛法"><a href="#欧拉筛法" class="headerlink" title="欧拉筛法"></a>欧拉筛法</h4><blockquote>
 <p>欧拉筛法, 也称线性筛, 简称欧拉筛, 同样用于筛选 $ n $ 以内的素数</p>
 </blockquote>
 <p>埃氏筛固然好, 好写, 但时间复杂度后面带的两个 $ log $ 实在是令人不爽。那有没有时间复杂度 $ O(n) $ 的筛法呢? 当然有, 那就是欧拉筛法。</p>
-<h4 id="主要思想-1"><a href="#主要思想-1" class="headerlink" title="主要思想"></a>主要思想</h4><p>首先若想实现时间复杂度为线性的话, 每个数字只会被筛一次, 所以欧拉筛的思想为:</p>
+<h5 id="主要思想-1"><a href="#主要思想-1" class="headerlink" title="主要思想"></a>主要思想</h5><p>首先若想实现时间复杂度为线性的话, 每个数字只会被筛一次, 所以欧拉筛的思想为:</p>
 <p>首先, 设一个数 $ n = ab $ , 其中 $ a $ 为 $ n $ 的最小质因数。</p>
 <p>然后我们可以枚举 $ b $ , 原因如下:</p>
 <blockquote>
-<p>若有数 $ m = bp $ , 其中 $ p $ 为 $ m $ 的最小质因数, 且 $ p &gt; b $</p>
-<p>若 $ b $ 是一个质数:</p>
+<p>假设有数 $ m = bp $ , 其中 $ p $ 为 $ m $ 的最小质因数, 且 $ p &gt; b $</p>
+<p>设 $ b = kc $ , 其中 $ k $ 为 $ b $ 的最小质因数, 则:</p>
 <blockquote>
-<p>$ \because b &lt; p $</p>
-<p>$\therefore b $ 是 $ n $ 的最小质因数</p>
-<p>与原意不符</p>
-</blockquote>
-<p>若 b 是一个合数:</p>
-<blockquote>
-<p>设 $ b = kc $, 其中 $ k $ 为 $ b $ 的最小质因数</p>
-<p>$ \because b &lt; p $</p>
+<p>$ \because m \neq 0$</p>
+<p>$ \therefore b \neq 0 $</p>
+<p>$ \therefore c &gt; 0 $</p>
+<p>$ \because b = kc, b &lt; p $</p>
+<p>$ \therefore kc &lt; p $</p>
+<p>$ \therefore k &lt; \frac{p}{c} $</p>
+<p>又 $ \because c &gt; 0 $</p>
+<p>$ \therefore \frac{p}{c} &lt; p $</p>
 <p>$ \therefore k &lt; p $</p>
+<p>又 $ \because k $ 是质数</p>
 <p>$ \therefore k $ 是 $ n $ 的最小质因数</p>
-<p>与原意不符</p>
+<p>与假设相矛盾</p>
 </blockquote>
 <p>$ \therefore 综上: 若 n = ab, 且 a 为 n 的最小质因数, 则 a \leq b $</p>
 </blockquote>
-<p>所以当我们枚举 $ b $ 时, 可取的 $ a $ 值已经求出了, 所以在枚举之前算出的质数即可。</p>
+<p>因为 $ a &lt; b $ , 所以当我们枚举 $ b $ 时, 可取的 $ a $ 值已经求出了, 直接枚举之前算出的质数即可。</p>
 <p>但有因为这里枚举的是 $ b $ , 所以可能还没枚举到这个数真正的 $ b $ , 可能就会有一些其他数先筛到它了, 比如 12 是先被 4 筛到, 而不是被 6 筛掉。所以要在枚举 $ a $ 时判断, 若 $ b \equiv 0 (mod\ a) $ , 则完成这一次筛选后就不再筛选了, 原因如下:</p>
 <blockquote>
 <p>若有 $ m = ab $ , 其中 $ a $ 是质数, 且 $ b \geq a $ , $ b \equiv 0 (mod\ a) $</p>
 <p>则对于后来枚举到的质数 $ p $ :</p>
 <blockquote>
-<p>$ \because a $ 是质数, $ p $ 是质数</p>
 <p>$ \because b \equiv 0 (mod\ a) $</p>
 <p>$ \therefore $ 设 $ b = ak $</p>
 <p>$ \therefore $ 后来筛到的 $ b’ = apk $</p>
@@ -639,9 +639,9 @@
 <p>$ \because a, p $ 都是质数</p>
 <p>又 $ \because a &lt; p $</p>
 <p>$ \therefore a $ 是 $ b’ $ 的最小质因数</p>
-<p>与原意不符</p>
+<p>与假设相矛盾</p>
 </blockquote>
-<p>$ \therefore 当 $ $ b \equiv 0 (mod\ a) $ 时, $ a $ 不能取更大的值, 否则不符定义</p>
+<p>$ \therefore 当 $ $ b \equiv 0 (mod\ a) $ 时, $ a $ 不能取更大的值, 否则将取得错误的值</p>
 </blockquote>
 <p>所以由上面的结论可得:</p>
 <pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 时间复杂度 O(n), 空间复杂度 O(n + ln(n)/n)</span>
@@ -662,6 +662,43 @@
 <p>附: 与欧拉有关的知识都有大片证明, 读者若不注重证明方法可跳过不读</p>
 </blockquote>
 <hr>
+<h3 id="2-因数"><a href="#2-因数" class="headerlink" title="2. 因数"></a>2. 因数</h3><h4 id="分解因数"><a href="#分解因数" class="headerlink" title="分解因数"></a>分解因数</h4><blockquote>
+<p>用处并不是很大</p>
+</blockquote>
+<h5 id="主要思想-2"><a href="#主要思想-2" class="headerlink" title="主要思想"></a>主要思想</h5><p>因为分解因数并不是很常用, 所以此处就只展示一种暴力算法。当然, 这里是优化过的, 是按讲筛法时判断素数的优化来优化的:</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 时间复杂度 O(n) 空间复杂度 O(1)</span>
+<span class="token keyword">void</span> <span class="token function">function</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">*</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">%</span> i <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d "</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">*</span> i <span class="token operator">!=</span> n<span class="token punctuation">)</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d "</span><span class="token punctuation">,</span> n <span class="token operator">/</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="分解质因数"><a href="#分解质因数" class="headerlink" title="分解质因数"></a>分解质因数</h4><blockquote>
+<p>顾名思义, 用于分解一个数的质因数</p>
+</blockquote>
+<h5 id="主要思想-3"><a href="#主要思想-3" class="headerlink" title="主要思想"></a>主要思想</h5><p>首先, 仍然是一个浅显易懂的暴力算法, 但不同的是, 一般来说, 这时初学者用得很多的一种算法:</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 最差情况时间复杂度 O(n) 最优情况时间复杂度 O(log(n)) 空间复杂度 O(1)</span>
+<span class="token keyword">void</span> <span class="token function">function</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> n <span class="token operator">&gt;</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">%</span> i <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d "</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>n <span class="token operator">%</span> i <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> n <span class="token operator">/=</span> i<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>不过对于某些卡时间的题,  这种算法可以按之前分解因数的方法, 只判断到 $ \sqrt{n} $ 即可:</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token comment">// 最差情况时间复杂度 O(n ^ 1/2) 最优情况时间复杂度 O(log(n)) 空间复杂度 O(1)</span>
+<span class="token keyword">void</span> <span class="token function">function</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> n <span class="token operator">&gt;</span> <span class="token number">1</span> <span class="token operator">&amp;&amp;</span> i <span class="token operator">*</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">%</span> i <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d "</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>n <span class="token operator">%</span> i <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> n <span class="token operator">/=</span> i<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">&gt;</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>之所以可以将 $ i $ 限制在变化的 $ n $ 之中, 是因为一个数不可能存在两个比其开方还大的因数。</p>
 
                 
             </div>
